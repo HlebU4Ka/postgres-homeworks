@@ -3,12 +3,12 @@ import csv
 import os
 
 with psycopg2.connect(host="localhost",
-                      database="postgres-homeworks",
-                      user="postgres",
-                      password="0052533") as conn:
-    try:
-        with conn.cursor() as cur:
-            with open(os.path.join('..', 'homework-1', 'postgres-homeworks', 'customers_data.csv'), 'r',
+                        database="postgres-homeworks",
+                        user="postgres",
+                    password="0052533") as conn:
+    # try:
+    with conn.cursor() as cur:
+            with open(os.path.join('..', 'homework-1', 'north_data', 'customers_data.csv'), 'r',
                       encoding='utf-8') as f:
                 # запись данных в переменную
                 csv_text = csv.reader(f)
@@ -17,7 +17,7 @@ with psycopg2.connect(host="localhost",
                 for i in csv_text:
                     cur.execute("INSERT INTO customers VALUES (%s, %s, %s)", tuple(i))
 
-        with open(os.path.join('..', 'homework-1', 'north_data', 'employees_data.csv'), 'r', encoding='utf-8') \
+    with open(os.path.join('..', 'homework-1', 'north_data', 'employees_data.csv'), 'r', encoding='utf-8') \
                 as file_employees:
             # запись данных в переменную
             csv_text = csv.reader(file_employees)
@@ -27,7 +27,7 @@ with psycopg2.connect(host="localhost",
             for i in csv_text:
                 cur.execute('INSERT INTO employees VALUES (%s, %s, %s, %s, %s, %s)', tuple(i))
 
-        with open(os.path.join('..', 'homework-1', 'north_data', 'orders_data.csv'), 'r', encoding='utf-8') \
+    with open(os.path.join('..', 'homework-1', 'north_data', 'orders_data.csv'), 'r', encoding='utf-8') \
                 as file_order:
             # запись данных в переменную
             csv_text = csv.reader(file_order)
@@ -37,7 +37,7 @@ with psycopg2.connect(host="localhost",
             for i in csv_text:
                 cur.execute('INSERT INTO orders VALUES (%s, %s, %s, %s, %s)', tuple(i))
 
-    except psycopg2.Error as e:
-        print("Error connecting to the database:", e)
+    # except binary.Error as e:
+    #     print("Error connecting to the database:", e)
 
 conn.close()
